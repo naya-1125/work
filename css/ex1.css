@@ -13,21 +13,22 @@ body{
 /*nav*/
 nav{ 
 	background: rgb(255, 183, 75);
-    padding: 20px;
+    padding: 0px;
 }
 
 nav a{
 	background: rgb(255, 183, 75);
-    padding: 20px;
-    display: inline-block
+    padding: 15px;
+    display: inline-block;
 
     color: #fefae0;
-    text-decoration: none;
+	text-decoration: none;
 }
 
 nav a:hover{
 	background:#ffe4b8;
 	color:rgb(255, 183, 75);
+	text-decoration: none;
 }
 
 /*section*/
