@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+html {
+  scroll-behavior: smooth;
+}
+
 body{
 	text-align: center; /* 文字置中 */
     background: #ffe4b8;
