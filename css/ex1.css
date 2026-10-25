@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cantata+One&family=DM+Serif+Display:ital@0;1&family=Noto+Serif+TC:wght@200..900&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@200..900&family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&family=TASA+Explorer:wght@400..800&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -6,33 +7,75 @@ html {
 
 body{
 	text-align: center; /* 文字置中 */
-    background: #ffe4b8;
-    color:rgb(255, 183, 75); /*文字顏色*/
+    background: #e5fff9;
+    color:#28a397; /*文字顏色*/
 	padding: 0;
 	margin: 0;
 
-	font-family: 'Golos Text', sans-serif;
-
-}
-/*nav*/
-nav{ 
-	background: rgb(255, 183, 75);
-    padding: 0px;
+	/* 先寫英文字體，再寫繁體中文字體，最後加通用字族 */
+ 	font-family: "Unna", "Noto Serif TC", serif;
+  	font-weight: 900; /* 讓中文呈現更粗的宋體效果 */
 }
 
-nav a{
-	background: rgb(255, 183, 75);
-    padding: 15px;
-    display: inline-block;
-
-    color: #fefae0;
-	text-decoration: none;
+header {
+  margin-top: 50px; /* 數值越大，header 離視窗頂端越遠（往下移） */
 }
 
-nav a:hover{
-	background:#ffe4b8;
-	color:rgb(255, 183, 75);
-	text-decoration: none;
+/* ========================
+   膠囊藥丸導覽列 (Pill Nav)
+   ======================== */
+
+nav {
+  /* 膠囊本體置中且不鋪滿整行 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* 參考圖的淺粉/玫瑰色底座與膠囊圓角 */
+  background-color:  #bbfff8;  /* 柔和粉底 */
+  border-radius: 999px;       /* 兩端完全圓角（膠囊形狀） */
+  padding: 5px 8px;           /* 膠囊邊緣留白 */
+  margin:0px auto 30px auto;  /* 上方距離從 30px 縮小至 8px，想更貼近可設為 0 */
+
+  /* 若原本 nav 的父容器需要置中，可確保字體設定 */
+  font-family: "Noto Serif TC", serif;
+  font-weight: 650;
+}
+
+/* 讓 nav 能在父層區塊中水平置中（如果父層沒有 flex） */
+header, body {
+  text-align: center;
+}
+
+/* 導覽按鈕共通樣式 */
+nav a {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 999px;       /* 每個按鈕單獨也能變膠囊圓角 */
+  color: #19725f;             /* 深酒紅/棕紅色文字 */
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  background: transparent;
+  transition: all 0.3s ease;  /* 滑順過渡動效 */
+}
+
+/* 滑鼠移入（未選中項目）的效果 */
+nav a:hover {
+  color: #28a397;
+  background-color: rgba(249, 255, 255, 0.468); /* 微透亮光 */
+}
+
+/* 當前選中的項目（如參考圖左側的紅色實心膠囊） */
+nav a.active {
+  background-color: #28a397;  /* 實心深酒紅/紅褐底色 */
+  color: #FFFFFF;             /* 白字 */
+  box-shadow: 0 2px 8px rgba(54, 178, 155, 0.25); /* 精緻微立體陰影 */
+}
+
+/* 點擊瞬間微下壓感 */
+nav a:active {
+  transform: scale(0.95);
 }
 
 /*section*/
@@ -42,34 +85,118 @@ section{
 }
 
 
-/* article */
-article{
-	display: inline-block;
-	border:solid 1px rgba(55, 65, 105, 0.2);
-    width: 200px;
-	margin: 20px;
-}
-article img{
-	width: 80%;
-	border-radius: 50%;
+/* ========================
+   拱門橢圓翻轉卡片
+   ======================== */
+
+article {
+  display: inline-block;
+  width: 200px;
+  height: 250px;            /* 給定固定高度供 3D 翻轉 */
+  margin: 20px;
+  perspective: 1000px;      /* 建立 3D 景深視角 */
+  background: transparent;
+  border: none;
 }
 
-article a{
-	display: inline-block;
-	color:rgb(255, 183, 75);
-	background: #ffffff;
-	text-decoration: none;
-	padding-bottom: 20px;
+/* 翻轉主體（<a> 標籤） */
+article a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-article a:hover{
-	color:#ffffff;
-	background: rgb(255, 183, 75);
+/* 滑鼠移入時翻轉 180 度 */
+article:hover a {
+  transform: rotateY(180deg);
 }
 
-article a:active{
-	color:#ffffff;
-	background: rgb(255, 183, 75);
+/* 點擊瞬間的按壓回饋效果 */
+article a:active {
+  /* 保持翻轉狀態，同時等比微縮小並下壓 */
+  transform: rotateY(180deg) scale(0.96) translateY(4px);
+  transition: transform 0.1s ease;
 }
 
+/* 點擊瞬間讓卡片陰影內縮，營造按壓深度的真實感 */
+article a:active .card-face {
+  box-shadow: 0 2px 6px rgba(148, 236, 227, 0.8);
+}
+
+/* 正反面共通設定：拱門橢圓造型與隱藏背面 */
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px 100px 100px 100px; /* 拱門膠囊形狀 */
+  overflow: hidden;
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+/* --- 正面（文字面） --- */
+.card-front {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.card-front .star {
+  color:#28a397;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.card-front h2 {
+  font-family: "Unna", serif;
+  font-size: 28px;
+  color:#28a397;         /* 精品酒紅色 */
+  font-size: 26px;
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.card-front p {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 650;        /* 可依喜好調整為 700 或 800，讓中文特別飽滿紮實 */
+  color: #555555;
+  font-size: 15px;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* --- 背面（圖片面） --- */
+.card-back {
+  background-color: #eef7f5;
+  transform: rotateY(180deg); /* 預先翻至背面 */
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* 讓圖片填滿整個拱門橢圓形狀 */
+  display: block;
+}
+
+
+footer {
+  text-align: center;         /* 水平置中 */
+  margin-top: 20px;          /* 往下拉開與上方卡片的距離，數值越大越下面 */
+  padding-bottom: 40px;      /* 頁面最下方的呼吸留白 */
+  font-size: 13px;           /* 建議字體稍微縮小更顯精緻 */
+  letter-spacing: 1px;       /* 增加字距提升質感 */
+}
 
