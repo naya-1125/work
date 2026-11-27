@@ -89,6 +89,14 @@ section{
    拱門橢圓翻轉卡片
    ======================== */
 
+#homework {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 720px; /* 3 個卡片 (240px * 3) 的總寬度 */
+  margin: 0 auto;  /* 讓整個區塊在頁面居中 */
+}
+
 article {
   display: inline-block;
   width: 200px;
